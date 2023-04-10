@@ -30,7 +30,27 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: [true, REQUIRED_FIELD],
       minlength: [8, INVALID_LENGTH]
-    }
+    },
+    location: {
+      address: {
+      },
+      type: String,
+      number: {
+        type: Number,
+      },
+      floor: {
+        type: String,
+      },
+      postalCode: {
+        type: Number,
+      },
+      country: {
+        type: String,
+      }
+    },
+    phone: {
+      type: Number,
+    },
   },
   {
     timestamps: true,
@@ -44,6 +64,27 @@ const UserSchema = new mongoose.Schema(
     }
   }
 )
+
+// UserSchema.virtual('productsOwned', {
+//   ref: 'Product',
+//   foreignField: 'owner',
+//   localField: '_id',
+//   justOne: false
+// })
+
+// UserSchema.virtual('productsBought', {
+//   ref: 'Product',
+//   foreignField: 'boughtBy',
+//   localField: '_id',
+//   justOne: false
+// })
+
+// UserSchema.virtual('productsLiked', {
+//   ref: 'Product',
+//   foreignField: 'likes',
+//   localField: '_id',
+//   justOne: false
+// })
 
 UserSchema.pre('save', function(next) {
   if (this.isModified('password')) {

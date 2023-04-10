@@ -4,12 +4,12 @@ const { StatusCodes } = require('http-status-codes');
 
 module.exports.isAuthenticated = (req, res, next) => {
   const authorization = req.header('Authorization')
-
+  console.log("authorization", authorization)
   if (!authorization) {
     return next(createError(StatusCodes.UNAUTHORIZED, 'Authorization header was not provided'))
   }
 
-  const [schema, token] = authorization.split(' '); // Deberia haberme llegado Bearer token
+  const [schema, token] = authorization.split(' ');
 
   if (schema !== 'Bearer') {
     return next(createError(StatusCodes.UNAUTHORIZED, 'Authorization schema is not supported'))
