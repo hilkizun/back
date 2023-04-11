@@ -27,7 +27,7 @@ module.exports.login = (req, res, next) => {
             { id: user.id },
             process.env.JWT_SECRET || 'test',
             {
-              expiresIn: '1h'
+              expiresIn: '360h'
             }
           )
 

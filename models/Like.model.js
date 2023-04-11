@@ -11,6 +11,11 @@ const LikeSchema = new mongoose.Schema({
     ref: 'Product',
     required: true,
   },
+  auction: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Auction',
+    required: true,
+  },
 }, {
   timestamps: true,
 });

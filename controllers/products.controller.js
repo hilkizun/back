@@ -9,8 +9,6 @@ module.exports.create = (req, res, next) => {
 
   const { name, description, price, photo, type } = req.body;
 
-  console.log('req.currentUserId', req.currentUserId)
-
 
   Product.create({ name, description, price, owner: req.currentUserId, photo, type })
     .then(product => res.status(201).json(product))
@@ -64,13 +62,13 @@ module.exports.unlike = (req, res, next) => {
   Like.findOne({ user: req.currentUserId, product: productId })
     .then(existingLike => {
       if (!existingLike) {
-        return res.status(400).json({ message: 'User has not liked this product' });
+        return res.status(400).json({ message: 'No has dado Like' });
       }
       return Like.findByIdAndDelete(existingLike._id)
         .then(() => {
           return Product.findByIdAndUpdate(productId, { $inc: { likesCount: -1 } });
         })
-        .then(() => res.status(200).json({ message: 'Product unliked successfully' }));
+        .then(() => res.status(200).json({ message: 'Ya no te gusta' }));
     })
     .catch(next);
 };

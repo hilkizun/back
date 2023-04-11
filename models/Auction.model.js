@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { REQUIRED_FIELD } = require('../config/errorMessages');
 
-const ProductSchema = new mongoose.Schema({
+const AuctionSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, REQUIRED_FIELD],
@@ -15,7 +15,27 @@ const ProductSchema = new mongoose.Schema({
   },
   currentPrice: {
     type: Number,
-    default: initialPrice,
+  },
+  bids: [
+    {
+      bidder: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+      },
+      amount: {
+        type: Number,
+        required: true,
+      },
+      timestamp: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
+  endDate: {
+    type: Date,
+    required: true,
   },
   finalPrice: {
     type: Number
@@ -31,6 +51,9 @@ const ProductSchema = new mongoose.Schema({
     type: String,
   },
   photo4: {
+    type: String,
+  },
+  type: {
     type: String,
   },
   owner: {
@@ -62,6 +85,6 @@ const ProductSchema = new mongoose.Schema({
 }
 );
 
-const Product = mongoose.model('Product', ProductSchema);
+const Auction = mongoose.model('Auction', AuctionSchema);
 
-module.exports = Product;
+module.exports = Auction;

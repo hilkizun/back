@@ -4,7 +4,7 @@ const { StatusCodes } = require('http-status-codes');
 
 module.exports.isAuthenticated = (req, res, next) => {
   const authorization = req.header('Authorization')
-  console.log("authorization", authorization)
+
   if (!authorization) {
     return next(createError(StatusCodes.UNAUTHORIZED, 'Authorization header was not provided'))
   }
