@@ -29,12 +29,11 @@ router.get('/auction', authMiddleware.isAuthenticated, auctionController.list);
 router.get('/auction/:id', authMiddleware.isAuthenticated, auctionController.detail)
 router.post('/:auctionId/bid',  authMiddleware.isAuthenticated, auctionController.placeBid);
 
-
 //Likes
 router.post('/:productId/like', authMiddleware.isAuthenticated, productsController.like);
 router.delete('/:productId/unlike', authMiddleware.isAuthenticated, productsController.unlike);
-router.get('/liked', authMiddleware.isAuthenticated, productsController.getLikedProducts);
-router.post('/:auctionId/like', authMiddleware.isAuthenticated, auctionController.like);
-router.delete('/:auctionId/unlike', authMiddleware.isAuthenticated, auctionController.unlike);
+router.get('/liked', authMiddleware.isAuthenticated, auctionController.getLikes);
+// router.post('/:auctionId/like', authMiddleware.isAuthenticated, auctionController.like);
+// router.delete('/:auctionId/unlike', authMiddleware.isAuthenticated, auctionController.unlike);
 
 module.exports = router;

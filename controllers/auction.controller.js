@@ -31,49 +31,49 @@ module.exports.detail = (req, res, next) => {
     .catch(next)
 }
 
-module.exports.like = (req, res, next) => {
-  const { auctionId } = req.params;
+// module.exports.like = (req, res, next) => {
+//   const { auctionId } = req.params;
 
-  Like.findOne({ user: req.currentUserId, auction: auctionId })
-    .then(existingLike => {
-      if (existingLike) {
-        return res.status(400).json({ message: 'Ya has dado like' });
-      }
+//   Like.findOne({ user: req.currentUserId, auction: auctionId })
+//     .then(existingLike => {
+//       if (existingLike) {
+//         return res.status(400).json({ message: 'Ya has dado like' });
+//       }
 
-      return Like.create({ user: req.currentUserId, auction: auctionId })
-        .then(() => {
-          return Auction.findByIdAndUpdate(auctionId, { $inc: { likesCount: 1 } });
-        })
-        .then(() => res.status(201).json({ message: 'Te gusta' }));
-    })
-    .catch(next);
-};
+//       return Like.create({ user: req.currentUserId, auction: auctionId })
+//         .then(() => {
+//           return Auction.findByIdAndUpdate(auctionId, { $inc: { likesCount: 1 } });
+//         })
+//         .then(() => res.status(201).json({ message: 'Te gusta' }));
+//     })
+//     .catch(next);
+// };
 
-module.exports.unlike = (req, res, next) => {
-  const { auctionId } = req.params;
+// module.exports.unlike = (req, res, next) => {
+//   const { auctionId } = req.params;
 
-  Like.findOne({ user: req.currentUserId, auction: auctionId })
-    .then(existingLike => {
-      if (!existingLike) {
-        return res.status(400).json({ message: 'No has dado like' });
-      }
-      return Like.findByIdAndDelete(existingLike._id)
-        .then(() => {
-          return Auction.findByIdAndUpdate(auctionId, { $inc: { likesCount: -1 } });
-        })
-        .then(() => res.status(200).json({ message: 'Ya no te gusta esta puja' }));
-    })
-    .catch(next);
-};
+//   Like.findOne({ user: req.currentUserId, auction: auctionId })
+//     .then(existingLike => {
+//       if (!existingLike) {
+//         return res.status(400).json({ message: 'No has dado like' });
+//       }
+//       return Like.findByIdAndDelete(existingLike._id)
+//         .then(() => {
+//           return Auction.findByIdAndUpdate(auctionId, { $inc: { likesCount: -1 } });
+//         })
+//         .then(() => res.status(200).json({ message: 'Ya no te gusta esta puja' }));
+//     })
+//     .catch(next);
+// };
 
-module.exports.getLikedAuctions = (req, res, next) => {
+module.exports.getLikes = (req, res, next) => {
   const { currentUserId } = req;
 
   Like.find({ user: currentUserId })
-    .populate('auction')
+    .populate('auction product')
     .then(likes => {
-      const likedAuctions = likes.map(like => like.auction);
-      res.status(200).json(likedAuctions);
+      const allLikes = likes.map(like => like);
+      res.status(200).json(allLikes);
     })
     .catch(next);
 };
@@ -89,8 +89,6 @@ module.exports.placeBid = (req, res, next) => {
       if (!auction) {
         return next(createError(404, 'Subasta no encontrada.'));
       }
-
-      console.log("AQUIIIII", auction)
 
       if (auction.endDate <= currentDate) {
         return next(createError(400, 'La puja ha terminado.'));

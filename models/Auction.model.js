@@ -5,6 +5,7 @@ const AuctionSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, REQUIRED_FIELD],
+    unique: true,
   },
   description: {
     type: String,
@@ -66,10 +67,9 @@ const AuctionSchema = new mongoose.Schema({
     ref: 'User',
     default: null,
   },
-  likes: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    default: null,
+  likesCount: {
+    type: Number,
+    default: 0,
   },
 },
 {
