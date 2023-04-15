@@ -18,13 +18,13 @@ router.get('/users/me', authMiddleware.isAuthenticated, userController.getCurren
 router.get('/users/:id', userController.getUser)
 
 //Product
-router.post('/products', authMiddleware.isAuthenticated, upload.single('photo'), productsController.create);
+router.post('/products', authMiddleware.isAuthenticated, upload.any(), productsController.create);
 router.get('/products', productsController.list);
 router.patch('/products/:id', authMiddleware.isAuthenticated, productsController.buy)
 router.get('/products/:id', productsController.detail)
 
 //Auctions
-router.post('/auction', authMiddleware.isAuthenticated, upload.single('photo'), auctionController.create);
+router.post('/auction', authMiddleware.isAuthenticated, upload.any(), auctionController.create);
 router.get('/auction', authMiddleware.isAuthenticated, auctionController.list);
 router.get('/auction/:id', authMiddleware.isAuthenticated, auctionController.detail)
 router.post('/:auctionId/bid',  authMiddleware.isAuthenticated, auctionController.placeBid);

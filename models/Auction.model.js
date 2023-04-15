@@ -41,18 +41,9 @@ const AuctionSchema = new mongoose.Schema({
   finalPrice: {
     type: Number
   },
-  photo: {
-    type: String,
-    required: [true, REQUIRED_FIELD],
-  },
-  photo2: {
-    type: String,
-  },
-  photo3: {
-    type: String,
-  },
-  photo4: {
-    type: String,
+  image: {
+    type: [String],
+    required: [true, REQUIRED_FIELD],    
   },
   type: {
     type: String,

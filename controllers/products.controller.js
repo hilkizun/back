@@ -4,14 +4,16 @@ const Auction = require('../models/Auction.model');
 const createError = require('http-errors');
 
 module.exports.create = (req, res, next) => {
-  if (req.file) {
-    req.body.photo = req.file.path
+  let image =[];
+  console.log(req.files, 'files');
+  if (req.files) {
+    image = req.files.map((file) => file.path)
   }
 
-  const { name, description, price, photo, type } = req.body;
+  const { name, description, price, type } = req.body;
 
 
-  Product.create({ name, description, price, owner: req.currentUserId, photo, type })
+  Product.create({ name, description, price, owner: req.currentUserId, image, type })
     .then(product => res.status(201).json(product))
     .catch(next);
 }

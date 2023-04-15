@@ -3,16 +3,18 @@ const Like = require('../models/Like.model');
 const createError = require('http-errors');
 
 module.exports.create = (req, res, next) => {
-  if (req.file) {
-    req.body.photo = req.file.path
+  let image =[];
+  console.log(req.files, 'files');
+  if (req.files) {
+    image = req.files.map((file) => file.path)
   }
 
-  const { name, description, initialPrice, photo, type } = req.body;
+  const { name, description, initialPrice, type } = req.body;
   const currentPrice = initialPrice;
   const endDate = new Date();
   endDate.setDate(endDate.getDate() + 7); // Añade 7 días a la fecha actual
 
-  Auction.create({ name, description, initialPrice, currentPrice, owner: req.currentUserId, photo, type, endDate })
+  Auction.create({ name, description, initialPrice, currentPrice, owner: req.currentUserId, image, type, endDate })
     .then(auction => res.status(201).json(auction))
     .catch(next);
 }
@@ -31,40 +33,6 @@ module.exports.detail = (req, res, next) => {
     .catch(next)
 }
 
-// module.exports.like = (req, res, next) => {
-//   const { auctionId } = req.params;
-
-//   Like.findOne({ user: req.currentUserId, auction: auctionId })
-//     .then(existingLike => {
-//       if (existingLike) {
-//         return res.status(400).json({ message: 'Ya has dado like' });
-//       }
-
-//       return Like.create({ user: req.currentUserId, auction: auctionId })
-//         .then(() => {
-//           return Auction.findByIdAndUpdate(auctionId, { $inc: { likesCount: 1 } });
-//         })
-//         .then(() => res.status(201).json({ message: 'Te gusta' }));
-//     })
-//     .catch(next);
-// };
-
-// module.exports.unlike = (req, res, next) => {
-//   const { auctionId } = req.params;
-
-//   Like.findOne({ user: req.currentUserId, auction: auctionId })
-//     .then(existingLike => {
-//       if (!existingLike) {
-//         return res.status(400).json({ message: 'No has dado like' });
-//       }
-//       return Like.findByIdAndDelete(existingLike._id)
-//         .then(() => {
-//           return Auction.findByIdAndUpdate(auctionId, { $inc: { likesCount: -1 } });
-//         })
-//         .then(() => res.status(200).json({ message: 'Ya no te gusta esta puja' }));
-//     })
-//     .catch(next);
-// };
 
 module.exports.getLikes = (req, res, next) => {
   const { currentUserId } = req;

@@ -14,18 +14,9 @@ const ProductSchema = new mongoose.Schema({
     type: Number,
     required: [true, REQUIRED_FIELD],
   },
-  photo: {
-    type: String,
-    required: [true, REQUIRED_FIELD],
-  },
-  photo2: {
-    type: String,
-  },
-  photo3: {
-    type: String,
-  },
-  photo4: {
-    type: String,
+  image: {
+    type: [String],
+    required: [true, REQUIRED_FIELD],    
   },
   type: {
     type: String,
