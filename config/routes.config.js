@@ -33,7 +33,6 @@ router.post('/:auctionId/bid',  authMiddleware.isAuthenticated, auctionControlle
 router.post('/:productId/like', authMiddleware.isAuthenticated, productsController.like);
 router.delete('/:productId/unlike', authMiddleware.isAuthenticated, productsController.unlike);
 router.get('/liked', authMiddleware.isAuthenticated, auctionController.getLikes);
-// router.post('/:auctionId/like', authMiddleware.isAuthenticated, auctionController.like);
-// router.delete('/:auctionId/unlike', authMiddleware.isAuthenticated, auctionController.unlike);
+
 
 module.exports = router;

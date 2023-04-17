@@ -47,6 +47,7 @@ const AuctionSchema = new mongoose.Schema({
   },
   type: {
     type: String,
+    default: 'auction',
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
