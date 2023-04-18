@@ -119,15 +119,5 @@ module.exports.unlike = (req, res, next) => {
 };
 
 
-// module.exports.getLikedProducts = (req, res, next) => {
-//   const { currentUserId } = req;
 
-//   Like.find({ user: currentUserId })
-//     .populate('product')
-//     .then(likes => {
-//       const likedProducts = likes.map(like => like.product);
-//       res.status(200).json(likedProducts);
-//     })
-//     .catch(next);
-// };
 

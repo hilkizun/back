@@ -65,26 +65,26 @@ const UserSchema = new mongoose.Schema(
   }
 )
 
-// UserSchema.virtual('productsOwned', {
-//   ref: 'Product',
-//   foreignField: 'owner',
-//   localField: '_id',
-//   justOne: false
-// })
+UserSchema.virtual('productsOwned', {
+  ref: 'Product',
+  foreignField: 'owner',
+  localField: '_id',
+  justOne: false
+})
 
-// UserSchema.virtual('productsBought', {
-//   ref: 'Product',
-//   foreignField: 'boughtBy',
-//   localField: '_id',
-//   justOne: false
-// })
+UserSchema.virtual('productsBought', {
+  ref: 'Product',
+  foreignField: 'boughtBy',
+  localField: '_id',
+  justOne: false
+})
 
-// UserSchema.virtual('productsLiked', {
-//   ref: 'Product',
-//   foreignField: 'likes',
-//   localField: '_id',
-//   justOne: false
-// })
+UserSchema.virtual('productsLiked', {
+  ref: 'Product',
+  foreignField: 'likes',
+  localField: '_id',
+  justOne: false
+})
 
 UserSchema.pre('save', function(next) {
   if (this.isModified('password')) {

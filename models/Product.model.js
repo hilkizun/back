@@ -31,15 +31,12 @@ const ProductSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  // boughtBy: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: 'User',
-  //   default: null,
-  // }
+  boughtBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    default: null,
+  }
 });
-
-
-
 
 const Product = mongoose.model('Product', ProductSchema);
 

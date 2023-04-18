@@ -25,8 +25,8 @@ router.get('/products/:id', productsController.detail)
 
 //Auctions
 router.post('/auction', authMiddleware.isAuthenticated, upload.any(), auctionController.create);
-router.get('/auction', authMiddleware.isAuthenticated, auctionController.list);
-router.get('/auction/:id', authMiddleware.isAuthenticated, auctionController.detail)
+router.get('/auction', auctionController.list);
+router.get('/auction/:id', auctionController.detail)
 router.post('/:auctionId/bid',  authMiddleware.isAuthenticated, auctionController.placeBid);
 
 //Likes
