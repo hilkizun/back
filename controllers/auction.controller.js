@@ -9,12 +9,12 @@ module.exports.create = (req, res, next) => {
     image = req.files.map((file) => file.path)
   }
 
-  const { name, description, initialPrice, type } = req.body;
+  const { name, description, initialPrice, category, type } = req.body;
   const currentPrice = initialPrice;
   const endDate = new Date();
   endDate.setDate(endDate.getDate() + 7); // Añade 7 días a la fecha actual
 
-  Auction.create({ name, description, initialPrice, currentPrice, owner: req.currentUserId, image, type, endDate })
+  Auction.create({ name, description, initialPrice, currentPrice, category, owner: req.currentUserId, image, type, endDate })
     .then(auction => res.status(201).json(auction))
     .catch(next);
 }

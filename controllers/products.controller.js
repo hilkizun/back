@@ -2,6 +2,8 @@ const Product = require('../models/Product.model');
 const Like = require('../models/Like.model');
 const Auction = require('../models/Auction.model');
 const createError = require('http-errors');
+const ProductPurchase = require('../models/ProductPurchase.model');
+
 
 module.exports.create = (req, res, next) => {
   let image =[];
@@ -10,10 +12,10 @@ module.exports.create = (req, res, next) => {
     image = req.files.map((file) => file.path)
   }
 
-  const { name, description, price, type } = req.body;
+  const { name, description, price, type, category } = req.body;
 
 
-  Product.create({ name, description, price, owner: req.currentUserId, image, type })
+  Product.create({ name, description, price, owner: req.currentUserId, image, category, type })
     .then(product => res.status(201).json(product))
     .catch(next);
 }
@@ -25,11 +27,22 @@ module.exports.list = (req, res, next) => {
 }
 
 module.exports.buy = (req, res, next) => {
-  const { id } = req.params
-  Product.findByIdAndUpdate(id, { boughtBy: req.currentUserId }, { new: true })
-    .then(product => res.json(product))
-    .catch(next)
-}
+  const { id } = req.params;
+
+  Product.findById(id)
+    .then(product => {
+      if (!product) {
+        throw new Error('Producto no encontrado');
+      }
+
+      return ProductPurchase.create({
+        product: id,
+        buyer: req.currentUserId,
+      });
+    })
+    .then(purchase => res.json(purchase))
+    .catch(next);
+};
 
 
 module.exports.detail = (req, res, next) => {

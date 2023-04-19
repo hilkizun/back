@@ -44,7 +44,7 @@ const UserSchema = new mongoose.Schema(
       postalCode: {
         type: Number,
       },
-      country: {
+      city: {
         type: String,
       }
     },

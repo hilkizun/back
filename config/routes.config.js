@@ -4,6 +4,7 @@ const userController = require('../controllers/users.controller')
 const productsController = require('../controllers/products.controller')
 const auctionController = require('../controllers/auction.controller')
 const upload = require('../config/storage.config')
+const productPurchaseController = require('../controllers/productpurchase.controller');
 
 const authMiddleware = require('../middlewares/auth.middleware')
 
@@ -33,6 +34,10 @@ router.post('/:auctionId/bid',  authMiddleware.isAuthenticated, auctionControlle
 router.post('/:productId/like', authMiddleware.isAuthenticated, productsController.like);
 router.delete('/:productId/unlike', authMiddleware.isAuthenticated, productsController.unlike);
 router.get('/liked', authMiddleware.isAuthenticated, auctionController.getLikes);
+
+//Purchase
+router.post('/purchase', authMiddleware.isAuthenticated, productPurchaseController.createPurchase);
+
 
 
 module.exports = router;

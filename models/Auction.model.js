@@ -1,6 +1,18 @@
 const mongoose = require('mongoose');
 const { REQUIRED_FIELD } = require('../config/errorMessages');
 
+const categoryEnum = [
+  "amigurumis",
+  "complementos",
+  "jerseys",
+  "camisetas",
+  "gorros",
+  "calcetines",
+  "manoplas",
+  "chales",
+  "bastidores",
+];
+
 const AuctionSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -48,6 +60,11 @@ const AuctionSchema = new mongoose.Schema({
   type: {
     type: String,
     default: 'auction',
+  },
+  category: {
+    type: String,
+    enum: categoryEnum,
+    required: [true, REQUIRED_FIELD],
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,

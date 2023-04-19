@@ -1,6 +1,18 @@
 const mongoose = require('mongoose');
 const { REQUIRED_FIELD } = require('../config/errorMessages');
 
+const categoryEnum = [
+  "amigurumis",
+  "complementos",
+  "jerseys",
+  "camisetas",
+  "gorros",
+  "calcetines",
+  "manoplas",
+  "chales",
+  "bastidores",
+];
+
 const ProductSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -21,6 +33,11 @@ const ProductSchema = new mongoose.Schema({
   type: {
     type: String,
     default: 'product',
+  },
+  category: {
+    type: String,
+    enum: categoryEnum,
+    required: [true, REQUIRED_FIELD],
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
