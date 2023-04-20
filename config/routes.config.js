@@ -28,6 +28,8 @@ router.post('/auction', authMiddleware.isAuthenticated, upload.any(), auctionCon
 router.get('/auction', auctionController.list);
 router.get('/auction/:id', auctionController.detail)
 router.post('/:auctionId/bid',  authMiddleware.isAuthenticated, auctionController.placeBid);
+router.get('/auction/:id/highest-bid', auctionController.getHighestBid);
+
 
 //Likes
 router.post('/:productId/like', authMiddleware.isAuthenticated, productsController.like);

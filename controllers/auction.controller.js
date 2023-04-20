@@ -78,3 +78,18 @@ module.exports.placeBid = (req, res, next) => {
       next(createError(500, 'Error placing bid.'));
     });
 };
+
+module.exports.getHighestBid = (req, res, next) => {
+  const { id } = req.params;
+
+  Auction.findById(id)
+    .then(auction => {
+      if (!auction) {
+        return next(createError(404, 'Subasta no encontrada.'));
+      }
+
+      const highestBid = auction.bids.reduce((max, bid) => (bid.amount > max.amount ? bid : max), { amount: 0 });
+      res.json(highestBid);
+    })
+    .catch(next);
+};
