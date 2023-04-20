@@ -21,7 +21,6 @@ router.get('/users/:id', userController.getUser)
 //Product
 router.post('/products', authMiddleware.isAuthenticated, upload.any(), productsController.create);
 router.get('/products', productsController.list);
-router.patch('/products/:id', authMiddleware.isAuthenticated, productsController.buy)
 router.get('/products/:id', productsController.detail)
 
 //Auctions
@@ -37,6 +36,9 @@ router.get('/liked', authMiddleware.isAuthenticated, auctionController.getLikes)
 
 //Purchase
 router.post('/purchase', authMiddleware.isAuthenticated, productPurchaseController.createPurchase);
+router.get('/purchase/:id', authMiddleware.isAuthenticated, productPurchaseController.detail);
+router.patch('/purchase/:id', authMiddleware.isAuthenticated, productPurchaseController.update);
+
 
 
 

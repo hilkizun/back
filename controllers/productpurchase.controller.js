@@ -18,3 +18,32 @@ module.exports.createPurchase = (req, res, next) => {
     .then(purchase => res.status(201).json(purchase))
     .catch(next);
 };
+
+module.exports.detail = (req, res, next) => {
+  const { id } = req.params
+
+  ProductPurchase.findById(id)
+    .populate('product')
+    .populate('buyer')
+    .then(purchase => res.json(purchase))
+    .catch(next)
+}
+
+module.exports.update = (req, res, next) => {
+  const { id } = req.params;
+  const updatedFields = req.body;
+
+  console.log('purchase', id, updatedFields);
+
+  ProductPurchase.findByIdAndUpdate(id, updatedFields, { new: true })
+    .populate('product')
+    .populate('buyer')
+    .then(updatedPurchase => {
+      if (!updatedPurchase) {
+        throw new Error('Product purchase not found');
+      }
+
+      res.status(200).json(updatedPurchase);
+    })
+    .catch(next);
+};

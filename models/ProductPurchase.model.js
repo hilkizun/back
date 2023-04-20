@@ -14,8 +14,8 @@ const ProductPurchaseSchema = new mongoose.Schema({
   },
   location: {
     address: {
+      type: String,
     },
-    type: String,
     number: {
       type: Number,
     },
@@ -30,7 +30,7 @@ const ProductPurchaseSchema = new mongoose.Schema({
     }
   },
   phone: {
-    type: Number,
+    type: String,
   },
   purchaseDate: {
     type: Date,

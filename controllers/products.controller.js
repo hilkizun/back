@@ -26,23 +26,23 @@ module.exports.list = (req, res, next) => {
     .catch(next)
 }
 
-module.exports.buy = (req, res, next) => {
-  const { id } = req.params;
+// module.exports.buy = (req, res, next) => {
+//   const { id } = req.params;
 
-  Product.findById(id)
-    .then(product => {
-      if (!product) {
-        throw new Error('Producto no encontrado');
-      }
+//   Product.findById(id)
+//     .then(product => {
+//       if (!product) {
+//         throw new Error('Producto no encontrado');
+//       }
 
-      return ProductPurchase.create({
-        product: id,
-        buyer: req.currentUserId,
-      });
-    })
-    .then(purchase => res.json(purchase))
-    .catch(next);
-};
+//       return ProductPurchase.create({
+//         product: id,
+//         buyer: req.currentUserId,
+//       });
+//     })
+//     .then(purchase => res.json(purchase))
+//     .catch(next);
+// };
 
 
 module.exports.detail = (req, res, next) => {
