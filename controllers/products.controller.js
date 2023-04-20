@@ -21,10 +21,11 @@ module.exports.create = (req, res, next) => {
 }
 
 module.exports.list = (req, res, next) => {
-  Product.find()
+  const user = req.currentUserId;
+  Product.find({ $or: [{ winner: user }, { winner: null }] })
     .then(products => res.json(products))
-    .catch(next)
-}
+    .catch(next);
+};
 
 module.exports.detail = (req, res, next) => {
   const { id } = req.params

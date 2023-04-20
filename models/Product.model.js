@@ -48,12 +48,23 @@ const ProductSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  boughtBy: {
+  winner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     default: null,
   }
-});
+},
+{
+  timestamps: true,
+  toJSON: {
+      virtuals: true,
+      transform: (doc, ret) => { 
+      delete ret.__v;
+      delete ret.password;
+      }
+  }
+}
+);
 
 const Product = mongoose.model('Product', ProductSchema);
 

@@ -56,7 +56,7 @@ const UserSchema = new mongoose.Schema(
     timestamps: true,
     toJSON: {
         virtuals: true,
-        transform: (doc, ret) => { // Sirve para cambiar el output de los endpoints cuando hago res.json
+        transform: (doc, ret) => { 
         delete ret.__v;
         delete ret._id;
         delete ret.password;

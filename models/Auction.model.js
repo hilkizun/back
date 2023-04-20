@@ -71,7 +71,7 @@ const AuctionSchema = new mongoose.Schema({
     ref: 'User',
     required: [true, REQUIRED_FIELD],
   },
-  actionerWin: {
+  auctionWinner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     default: null,
@@ -80,6 +80,10 @@ const AuctionSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  isProductGenerated: {
+    type: Boolean,
+    default: false
+  }
 },
 {
   timestamps: true,
