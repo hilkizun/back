@@ -123,4 +123,12 @@ module.exports.getUserProducts = (req, res, next) => {
     .catch(next);
 };
 
+module.exports.getUserAuctionWinner = (req, res, next) => {
+  const { currentUserId } = req;
 
+  Product.find({ winner: currentUserId })
+    .then(products => {
+      res.status(200).json(products);
+    })
+    .catch(next);
+};
