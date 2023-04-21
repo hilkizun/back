@@ -22,6 +22,7 @@ router.get('/users/:id', userController.getUser)
 router.post('/products', authMiddleware.isAuthenticated, upload.any(), productsController.create);
 router.get('/products', productsController.list);
 router.get('/products/:id', productsController.detail)
+router.get('/userproducts', authMiddleware.isAuthenticated, productsController.getUserProducts);
 
 //Auctions
 router.post('/auction', authMiddleware.isAuthenticated, upload.any(), auctionController.create);
@@ -29,7 +30,7 @@ router.get('/auction', auctionController.list);
 router.get('/auction/:id', auctionController.detail)
 router.post('/:auctionId/bid',  authMiddleware.isAuthenticated, auctionController.placeBid);
 router.get('/auction/:id/highest-bid', auctionController.getHighestBid);
-
+router.get('/userauctions', authMiddleware.isAuthenticated, auctionController.getUserAuctions);
 
 //Likes
 router.post('/:productId/like', authMiddleware.isAuthenticated, productsController.like);
@@ -40,6 +41,5 @@ router.get('/liked', authMiddleware.isAuthenticated, auctionController.getLikes)
 router.post('/purchase', authMiddleware.isAuthenticated, productPurchaseController.createPurchase);
 router.get('/purchase/:id', authMiddleware.isAuthenticated, productPurchaseController.detail);
 router.patch('/purchase/:id', authMiddleware.isAuthenticated, productPurchaseController.update);
-router.delete('/purchase/:id', authMiddleware.isAuthenticated, productPurchaseController.delete);
 
 module.exports = router;

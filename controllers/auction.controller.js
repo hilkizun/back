@@ -132,3 +132,13 @@ module.exports.getHighestBid = (req, res, next) => {
   .catch(next);
 };  
 
+module.exports.getUserAuctions = (req, res, next) => {
+  const { currentUserId } = req;
+
+  Auction.find({ owner: currentUserId })
+    .then(auctions => {
+      res.status(200).json(auctions);
+    })
+    .catch(next);
+};
+

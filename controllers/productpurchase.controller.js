@@ -55,3 +55,10 @@ module.exports.delete = (req, res, next) => {
     .then(() => res.status(204).send())
     .catch(next);
 };
+
+module.exports.list = (req, res, next) => {
+  checkAuctionStatus();
+  ProductPurchase.find()
+  .then(auctions => res.json(auctions))
+  .catch(next)
+};  

@@ -113,6 +113,14 @@ module.exports.unlike = (req, res, next) => {
     .catch(next);
 };
 
+module.exports.getUserProducts = (req, res, next) => {
+  const { currentUserId } = req;
 
+  Product.find({ owner: currentUserId })
+    .then(products => {
+      res.status(200).json(products);
+    })
+    .catch(next);
+};
 
 
