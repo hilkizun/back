@@ -40,8 +40,6 @@ router.get('/liked', authMiddleware.isAuthenticated, auctionController.getLikes)
 router.post('/purchase', authMiddleware.isAuthenticated, productPurchaseController.createPurchase);
 router.get('/purchase/:id', authMiddleware.isAuthenticated, productPurchaseController.detail);
 router.patch('/purchase/:id', authMiddleware.isAuthenticated, productPurchaseController.update);
-
-
-
+router.delete('/purchase/:id', authMiddleware.isAuthenticated, productPurchaseController.delete);
 
 module.exports = router;

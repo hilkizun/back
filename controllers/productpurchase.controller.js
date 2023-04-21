@@ -47,3 +47,11 @@ module.exports.update = (req, res, next) => {
     })
     .catch(next);
 };
+
+module.exports.delete = (req, res, next) => {
+  const { id } = req.params;
+
+  ProductPurchase.findByIdAndDelete(id)
+    .then(() => res.status(204).send())
+    .catch(next);
+};
