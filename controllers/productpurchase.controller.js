@@ -13,6 +13,13 @@ module.exports.createPurchase = (req, res, next) => {
       return ProductPurchase.create({
         product: productId,
         buyer: req.currentUserId,
+      })
+      .then(purchase => {
+        return Product.findByIdAndUpdate(productId, { 
+          boughtBy: req.currentUserId,
+          sellOut: true
+         })
+        .then(() => purchase);
       });
     })
     .then(purchase => res.status(201).json(purchase))
@@ -48,6 +55,7 @@ module.exports.update = (req, res, next) => {
     .catch(next);
 };
 
+///////////
 module.exports.delete = (req, res, next) => {
   const { id } = req.params;
 
@@ -55,6 +63,7 @@ module.exports.delete = (req, res, next) => {
     .then(() => res.status(204).send())
     .catch(next);
 };
+////////////
 
 module.exports.list = (req, res, next) => {
   checkAuctionStatus();

@@ -132,3 +132,13 @@ module.exports.getUserAuctionWinner = (req, res, next) => {
     })
     .catch(next);
 };
+
+module.exports.getUserPurchases = (req, res, next) => {
+  const { currentUserId } = req;
+
+  Product.find({ boughtBy: currentUserId })
+    .then(products => {
+      res.status(200).json(products);
+    })
+    .catch(next);
+};

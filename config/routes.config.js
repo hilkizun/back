@@ -24,6 +24,8 @@ router.get('/products', productsController.list);
 router.get('/products/:id', productsController.detail)
 router.get('/userproducts', authMiddleware.isAuthenticated, productsController.getUserProducts);
 router.get('/winnerproducts', authMiddleware.isAuthenticated, productsController.getUserAuctionWinner);
+router.get('/userpurchase', authMiddleware.isAuthenticated, productsController.getUserPurchases);
+
 
 //Auctions
 router.post('/auction', authMiddleware.isAuthenticated, upload.any(), auctionController.create);

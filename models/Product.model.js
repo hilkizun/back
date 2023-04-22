@@ -52,7 +52,16 @@ const ProductSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     default: null,
-  }
+  },
+  boughtBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    default: null,
+  },
+  sellOut: {
+    type: Boolean,
+    default: false,
+  },
 },
 {
   timestamps: true,
