@@ -25,7 +25,6 @@ app.use((req, res, next) => {
     next(createError(StatusCodes.NOT_FOUND, 'Route not found'))
   })
 
-// Middleware genérico de errores
 app.use((error, req, res, next) => {
 console.error(error);
 
